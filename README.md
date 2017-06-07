@@ -28,9 +28,7 @@ and the same FileDecoder can be used to extract many segments from the same file
 
  Set it up and run `mex -setup c++` when you are done.
 
-  You *may* need to point MATLAB at this compiler, particularly if you have more than one installed. Save an empty file (`foo.cpp`) and try to compile it with `mex('-v', 'foo.cpp')`. One of the first lines in the output will say "Compiler location: ", followed by a path. *Make sure this is the right path.* If not, edit the file listed on the next line.  On R2016b, look for a section called `<locationFinder>` and adjust the command in `<cmdReturns name="which g++"/>`as needed (e.g, replace g++ with g++-4.9).
-  
-On older versions, look for lines starting with CXX= or GCC=. There are a few and you must change them all.
+  You *may* need to point MATLAB at this compiler, particularly if you have more than one installed. Save an empty file (`foo.cpp`) and try to compile it with `mex('-v', 'foo.cpp')`. One of the first lines in the output will say "Compiler location: ", followed by a path. *Make sure this is the right path.* If not, edit the file listed on the next line.  On R2016b, look for a section called `<locationFinder>` and adjust the command in `<cmdReturns name="which g++"/>`as needed (e.g, replace g++ with g++-4.9). On older versions, look for lines starting with CXX= or GCC=. There are a few and you must change them all.
 
 2. **Get libFLAC++.** It is important that libFLAC++ be built with the same MEX-compatible compiler used above (which also often precludes using a systemwide copy of libFLAC). To do this on a POSIX-y system (Linux, Mac, or Cygwin/MingW on windows):
 
@@ -45,3 +43,7 @@ On older versions, look for lines starting with CXX= or GCC=. There are a few an
  * **Parallel supprt**  Obviously, you cannot submit data in parallel for encoding, though it *should* be possible to read from a file in parallel. Right now, this crashes `parallel_function.m`--it looks like it "migrates" the objects without calling the copy constructor.
  * **Copy** (for FileEncoder) and **load/save** constructors. This would mostly be useful for configuring a "template" encoder that could be reused.
  * **Metadata** The FLAC format allows for a ton of different metadata, ranging from simple text comments to album art. None of that is presently supported.
+
+## Acknowledgements
+* This uses [class_handle.hpp](https://www.mathworks.com/matlabcentral/fileexchange/38964-example-matlab-class-wrapper-for-a-c++-class), by Oliver Woodford.
+* FLAC and libFLAC are mantained by the [Xiph.Org](xiph.org) Foundation
