@@ -23,21 +23,14 @@ plot(t(1:100), data(1,:));
 ```
 and the same FileDecoder can be used to extract many segments from the same file. See the class documentation for more details. The properties follow libFLAC++'s naming scheme for the [FLAC::Encoder::File](https://xiph.org/flac/api/classFLAC_1_1Encoder_1_1File.html) and [FLAC::Decoder::File](https://xiph.org/flac/api/classFLAC_1_1Decoder_1_1File.html); see those docs for details.
 
-
-
 ## Installation
 1. **Get a C++ compiler.** Since it needs to work with Matlab/MEX, you may need a much older version than whatever is installed installed on your system by default. R2016b, for example, uses gcc 4.9, instead of gcc7 See [here](https://www.mathworks.com/support/compilers.html) for a list of supported compilers.
 
  Set it up and run `mex -setup c++` when you are done.
 
-  You *may* need to point MATLAB at this compiler, particularly if you have more than one installed. Save an empty file (`foo.cpp`) and try to compile it with `mex('-v', 'foo.cpp')`. One of the first lines in the output will say "Compiler location: ", followed by a path. *Make sure this is the right path.* If not, edit the file listed on the next line.  On R2016b, look for a section like
-  ```
-  <locationFinder>
-     <GCC>
-			   <cmdReturns name="which g++"/>
-     </GCC>
-     ```
-   and adjust as needed. On older versions, look for lines starting with CXX= or GCC=. There are a few and you must change them all.
+  You *may* need to point MATLAB at this compiler, particularly if you have more than one installed. Save an empty file (`foo.cpp`) and try to compile it with `mex('-v', 'foo.cpp')`. One of the first lines in the output will say "Compiler location: ", followed by a path. *Make sure this is the right path.* If not, edit the file listed on the next line.  On R2016b, look for a section called `<locationFinder>` and adjust the command in `<cmdReturns name="which g++"/>`as needed (e.g, replace g++ with g++-4.9).
+  
+On older versions, look for lines starting with CXX= or GCC=. There are a few and you must change them all.
 
 2. **Get libFLAC++.** It is important that libFLAC++ be built with the same MEX-compatible compiler used above (which also often precludes using a systemwide copy of libFLAC). To do this on a POSIX-y system (Linux, Mac, or Cygwin/MingW on windows):
 
@@ -50,5 +43,5 @@ and the same FileDecoder can be used to extract many segments from the same file
 ## To do
  * **SEEKTABLE**: The FLAC format supports SEEKTABLES, which accelerates random access to pre-determined parts of the file. These are not yet supported.
  * **Parallel supprt**  Obviously, you cannot submit data in parallel for encoding, though it *should* be possible to read from a file in parallel. Right now, this crashes `parallel_function.m`--it looks like it "migrates" the objects without calling the copy constructor.
- * Copy (for FileEncoder) and load/save constructors. This would mostly be useful for configuring a "template" encoder that could be reused.
+ * **Copy** (for FileEncoder) and **load/save** constructors. This would mostly be useful for configuring a "template" encoder that could be reused.
  * **Metadata** The FLAC format allows for a ton of different metadata, ranging from simple text comments to album art. None of that is presently supported.
