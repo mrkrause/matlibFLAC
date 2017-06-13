@@ -24,6 +24,8 @@ plot(t(1:100), data(1,:));
 and the same FileDecoder can be used to extract many segments from the same file. See the class documentation for more details. The properties follow libFLAC++'s naming scheme for the [FLAC::Encoder::File](https://xiph.org/flac/api/classFLAC_1_1Encoder_1_1File.html) and [FLAC::Decoder::File](https://xiph.org/flac/api/classFLAC_1_1Decoder_1_1File.html); see those docs for details.
 
 ## Installation
+Precompiled binaries are available for Windows in `/precompiled`. Move those mex files into the same directory as FileEncoder and FileDecoder. For Mac and Linux, build as follows:
+
 1. **Get a C++ compiler.** Since it needs to work with Matlab/MEX, you may need a much older version than whatever is installed installed on your system by default. R2016b, for example, uses gcc 4.9, instead of gcc7 See [here](https://www.mathworks.com/support/compilers.html) for a list of supported compilers.
 
  Set it up and run `mex -setup c++` when you are done.
@@ -33,10 +35,12 @@ and the same FileDecoder can be used to extract many segments from the same file
 2. **Get libFLAC++.** It is important that libFLAC++ be built with the same MEX-compatible compiler used above (which also often precludes using a systemwide copy of libFLAC). To do this on a POSIX-y system (Linux, Mac, or Cygwin/MingW on windows):
 
   a. Download the most recent version of the [libFLAC++ source](http://downloads.xiph.org/releases/flac/) and unzip/untar it.
+
   b. Configure it. You probably want to do something like `CC=gcc-4.9 ./configure --prefix=/path/for/FLAC/folder`, where gcc-4.9 is a MEX-compatible C compiler (don't put g++ there!) and the path is a folder where you stash the build products
+
   c. Make it. `make && make install`. Wait a bit while it runs; it will
 
-3. **Build the MEX files.**  Run `build.m` to compile the MEX files.
+3. **Build the MEX files.**  Edit `build.m` to point to your `/path/for/FLAC/folder` and run it to compile the MEX Files.
 
 ## To do
  * **SEEKTABLE**: The FLAC format supports SEEKTABLES, which accelerates random access to pre-determined parts of the file. These are not yet supported.
