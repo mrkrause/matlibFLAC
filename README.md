@@ -10,6 +10,8 @@ The interface is meant to be object-oriented and very similar to libFLAC++. To e
 ```
 t = 0:(1/1000):10;
 x = round(sin(2*pi*t) .* 2^14);
+y = round(cos(2*pi*t) .* 2^14);
+
 e = FileEncoder('test.flac');
 e.sample_rate = 1000; %Change from default 44100 Hz
 e.process([x;y]);
@@ -44,7 +46,7 @@ Precompiled binaries are available for Windows in `/precompiled`. Move those mex
 
 ## To do
  * **SEEKTABLE**: The FLAC format supports SEEKTABLES, which accelerates random access to pre-determined parts of the file. These are not yet supported.
- * **Parallel supprt**  Obviously, you cannot submit data in parallel for encoding, though it *should* be possible to read from a file in parallel. Right now, this crashes `parallel_function.m`--it looks like it "migrates" the objects without calling the copy constructor.
+ * **Parallel supprt**  Obviously, data cannot be encoded in parallel--you need to specify the order! It *should* be possible to read from a file in parallel (e.g., at different locations), but right now, this crashes `parallel_function.m`--it looks like it "migrates" the objects without calling the copy constructor.
  * **Copy** (for FileEncoder) and **load/save** constructors. This would mostly be useful for configuring a "template" encoder that could be reused.
  * **Metadata** The FLAC format allows for a ton of different metadata, ranging from simple text comments to album art. None of that is presently supported.
 
