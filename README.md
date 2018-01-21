@@ -50,4 +50,4 @@ Precompiled binaries are available for Windows in `/precompiled`. Move those mex
 
 ## Acknowledgements
 * This uses [class_handle.hpp](https://www.mathworks.com/matlabcentral/fileexchange/38964-example-matlab-class-wrapper-for-a-c++-class), by Oliver Woodford.
-* FLAC and libFLAC are mantained by the [Xiph.Org](xiph.org) Foundation
+* FLAC and libFLAC are mantained by the [Xiph.Org](https://xiph.org/) Foundation
